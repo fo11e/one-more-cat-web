@@ -111,13 +111,18 @@ function hud(){ $('score').textContent=String(score).padStart(2,'0');$('dots').i
 function snapshot(){return {v:3,g:runGear.accordion,n:score,w:board.bounds.max.x-board.bounds.min.x,b:board.position.x,c:cats.filter(c=>c.landed).map(c=>({t:c.type,s:+c.compression.toFixed(5),x:+c.body.position.x.toFixed(2),y:+c.body.position.y.toFixed(2),a:+c.body.angle.toFixed(3),vx:+c.body.velocity.x.toFixed(3),vy:+c.body.velocity.y.toFixed(3),av:+c.body.angularVelocity.toFixed(4)})),t:nextType,x:nextX}}
 function makeCat(type,x,y,landed=false){let t=TYPES[type],st=Economy.gearStats(runGear),body=Bodies.rectangle(x,y,t.w,t.h,{chamfer:{radius:13},friction:st.catFriction,frictionStatic:st.catStatic,restitution:st.bounce,density:.001*t.m,frictionAir:.015});let cat={type,body,landed,compression:1};body.cat=cat;cats.push(cat);Composite.add(engine.world,body);return cat}
 // Compress in the cat's local vertical axis so rotated colliders match the art.
-function setCompression(cat,next){
+// Live squash keeps the cat's bottom in place; restoring a snapshot keeps its centre.
+function setCompression(cat,next,keepBottom=false){
  const body=cat.body,angle=body.angle,mass=body.mass;
- Body.setAngle(body,0);Body.scale(body,1,next/cat.compression);Body.setAngle(body,angle);Body.setMass(body,mass);cat.compression=next;
+ Body.setAngle(body,0);Body.scale(body,1,next/cat.compression,keepBottom?{x:body.position.x,y:body.position.y+TYPES[cat.type].h*cat.compression/2}:undefined);Body.setAngle(body,angle);Body.setMass(body,mass);cat.compression=next;
 }
+// Squashing under a cat that is still landing grabs it: sliding cats stuck to the stack.
+// So the stack only squashes once the newest cat has rested for a moment.
+const SQUASH_SETTLE_MS=600;
 function compressCats(dt){
  const stack=cats.filter(c=>c.landed).sort((a,b)=>a.body.position.y-b.body.position.y);
- stack.forEach((cat,above)=>{const desired=Math.max(1-Economy.compressionCap(runGear.accordion),1/(1+above*.38));const next=cat.compression+(desired-cat.compression)*Math.min(1,dt*1.8);if(Math.abs(next-cat.compression)>.0001)setCompression(cat,next);});
+ if(Date.now()-Math.max(0,...stack.map(c=>c.landedAt||0))<SQUASH_SETTLE_MS)return;
+ stack.forEach((cat,above)=>{const desired=Math.max(1-Economy.compressionCap(runGear.accordion),1/(1+above*.38));const next=cat.compression+(desired-cat.compression)*Math.min(1,dt*1.8);if(Math.abs(next-cat.compression)>.0001)setCompression(cat,next,true);});
 }
 function resetWorld(width=184+save.gear.width*12){cashoutLocked=false;rescueOffer=null;Composite.clear(engine.world,false);Engine.clear(engine);cats=[];particles=[];board=Bodies.rectangle(220,525,width,15,{isStatic:true,friction:Economy.gearStats(runGear).trayFriction,frictionStatic:Economy.gearStats(runGear).trayStatic,restitution:.02,chamfer:{radius:5},label:'tray'});board.trayWidth=width;board.friction=Economy.gearStats(runGear).trayFriction;board.frictionStatic=Economy.gearStats(runGear).trayStatic;Composite.add(engine.world,board);targetX=220;score=0;pending=null;checkpointWait=0;viewScale=1;cameraY=0;accumulator=0}
 function spawnRange(){return Math.min(350,120+score*11+Math.min(60,save.total*.3))}
@@ -158,7 +163,7 @@ function finish(delivered=false,challengeDone=false){
  phase='result';persist();updateMeta();hud();chirp(delivered?800:190,.25);
  if(deliveryReceipt){renderRewards();return}
  rescueOffer=!challengeMode?lowerRescueTypes():null;
- overlay(`<span class="eyebrow">${challengeDone?'ЭТО БЫЛО КРАСИВО':'СЕТКА ПОЙМАЛА ВСЕХ. ВЫДЫХАЙ.'}</span><h2>${challengeDone?'Держи!':'Котострофа.'}</h2><p>${challengeMode?`Ты удержал ${score} котов в вызове`:`Удержано ${score} котов · <b>+${reward} ✦</b> за старания<br>Коты не доставлены: копии не получены.<br>−${energyPaid} энергии`}</p>${!challengeMode?`<button class="primary rescue-button" id="rescueHalf" ${rescueOffer?.length?"":"disabled"}>Спасти половину · ${rescueOffer?.length||0} 🐾</button><small class="rescue-note">${rescueOffer?.length?"Нижние коты на подносе · пока бесплатно":"На подносе нет котов для спасения половины"}</small>`:""}<button class="primary" id="restart">ЕЩЁ ОДИН РЕЙС ↻</button><button class="secondary" id="resultShare">Бросить вызов другу ↗</button><button class="secondary" id="backLobby">Вернуться в приют</button>`);$('restart').onclick=()=>start(challengeMode?challengeState:null);$('resultShare').onclick=()=>openShare();if($('rescueHalf'))$('rescueHalf').onclick=rescueHalf;
+ overlay(`<span class="eyebrow">${challengeDone?'ЭТО БЫЛО КРАСИВО':'СЕТКА ПОЙМАЛА ВСЕХ. ВЫДЫХАЙ.'}</span><h2>${challengeDone?'Держи!':'Котострофа.'}</h2><p>${challengeMode?`Ты удержал ${score} котов в вызове`:`Удержано ${score} котов · <b>+${reward} ✦</b> за старания<br>Коты не доставлены: копии не получены.${energyPaid?`<br>−${energyPaid} энергии`:''}`}</p>${!challengeMode?`<button class="primary rescue-button" id="rescueHalf" ${rescueOffer?.length?"":"disabled"}>Спасти половину · ${rescueOffer?.length||0} 🐾</button><small class="rescue-note">${rescueOffer?.length?"Нижние коты на подносе · пока бесплатно":"На подносе нет котов для спасения половины"}</small>`:""}<button class="primary" id="restart">ЕЩЁ ОДИН РЕЙС ↻</button><button class="secondary" id="resultShare">Бросить вызов другу ↗</button><button class="secondary" id="backLobby">Вернуться в приют</button>`);$('restart').onclick=()=>start(challengeMode?challengeState:null);$('resultShare').onclick=()=>openShare();if($('rescueHalf'))$('rescueHalf').onclick=rescueHalf;
 }
 function step(dt){if(phase!=='playing')return;let dir=(keys.ArrowRight||keys.d?1:0)-(keys.ArrowLeft||keys.a?1:0);targetX+=dir*280*dt;let half=(board.bounds.max.x-board.bounds.min.x)/2;targetX=Math.max(half-15,Math.min(440-half+15,targetX));let dx=Math.max(-4.2,Math.min(4.2,(targetX-board.position.x)*.11));
 // Transfer the tray velocity to its actual contacts, never to nearby airborne cats.

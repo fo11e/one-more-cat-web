@@ -9,6 +9,12 @@ if(FEEDBACK_URL){
  $('feedbackLink').href=FEEDBACK_URL.startsWith('mailto:')?FEEDBACK_URL+'?subject='+encodeURIComponent('Ещё один кот — отзыв')+'&body='+encodeURIComponent('\n\n—\n'+info):FEEDBACK_URL;
  $('feedbackGroup').hidden=false;
 }
+// No energy on the web: there are no cheats or purchases to refill it, so runs are free.
+const baseTick=Economy.tick;Economy.tick=(s,now)=>{const r=baseTick(s,now);s.energy=s.config.energyMax;s.energyAt=Date.now();return r};
+Economy.beginRun=s=>{Economy.tick(s);return true};
+Economy.settleRun=s=>{delete s.pendingEnergyCost;return 0};
+save.energy=save.config.energyMax;delete save.pendingEnergyCost;persist();updateMeta();
+document.documentElement.classList.add('no-energy');
 // No pinch zoom: iOS Safari ignores user-scalable=no; double-tap is off via touch-action in native.css.
 for(const e of ['gesturestart','gesturechange'])document.addEventListener(e,ev=>ev.preventDefault(),{passive:false});
 // Splash stays until assets are in, like the app's launch screen.
