@@ -1,0 +1,17 @@
+/* Shop, rewarded offers and premium skins. */
+.shop-list{display:grid;gap:10px;margin:14px 0 6px}
+.shop-card{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;background:#fffdf6;border:1px solid var(--line);border-radius:18px;padding:12px 14px;text-align:left}
+.shop-card.owned{opacity:.75}
+.shop-icon{width:44px;height:44px;border-radius:14px;background:#eee4f3;color:#755185;display:grid;place-items:center;font-size:21px;font-weight:800}
+.shop-card b{display:block;font-size:14px}
+.shop-card small{display:block;font-size:10px;line-height:1.4;color:var(--muted);margin-top:3px}
+.shop-card .primary{min-width:84px;white-space:nowrap;padding:10px 12px}
+.shop-card .primary:disabled{filter:grayscale(.6);opacity:.7}
+#restorePurchases{color:var(--muted)}
+.double-collect{display:block;width:100%;margin:-8px 0 16px}
+.double-collect[hidden]{display:none}
+#energyDialog .primary{width:100%;margin-top:6px}
+#energyDialog .energy-note{display:block;font-size:10px;color:var(--muted);margin:8px 0 2px}
+.mobile-nav button{min-width:0}
+.mobile-nav button span{font-size:22px}
+.mobile-nav button[hidden],.meta-tabs button[hidden]{display:none}

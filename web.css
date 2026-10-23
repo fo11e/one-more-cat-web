@@ -1,0 +1,9 @@
+/* Web build: behaves like the app inside Safari / Chrome on a phone. */
+html,body{overscroll-behavior:none}
+body.mobile-app{height:100dvh;min-height:-webkit-fill-available}
+.web-ad{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;background:rgba(40,28,48,.72);padding:24px}
+.web-ad>div{background:#fffdf5;border-radius:24px;padding:28px 26px;text-align:center;max-width:300px;display:grid;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.web-ad b{font-size:20px}.web-ad small{color:var(--muted,#8a7f73)}
+.web-shop-note{background:#fffdf6;border:1px solid var(--line,#e5ddcf);border-radius:18px;padding:14px}
+#feedbackLink{display:block;text-align:center;text-decoration:none;margin:0}
+#restorePurchases[hidden]{display:none}
