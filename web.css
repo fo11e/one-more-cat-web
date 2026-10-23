@@ -8,3 +8,8 @@ body.mobile-app{height:100dvh;min-height:-webkit-fill-available}
 #feedbackLink{display:block;text-align:center;text-decoration:none;margin:0}
 #restorePurchases[hidden]{display:none}
 .no-energy .energy-bar,.no-energy #energyInline,.no-energy #startEnergy,.no-energy #mobilePlayHint{display:none}
+/* Wide screens (PC, tablets in landscape): keep the phone proportions in a centred column. */
+@media (min-aspect-ratio:3/4){
+ html{background:#e7dfcf}
+ body.mobile-app{width:min(100vw,calc(100dvh*9/19.5));height:100dvh;margin:0 auto;contain:paint;box-shadow:0 0 60px #463c2530}
+}

@@ -10,7 +10,7 @@ html{background:#f7f3e9}body.mobile-app{--phone-h:100dvh;width:100%;max-width:no
 .mobile-app .room-scene{height:auto;aspect-ratio:3/2;background:#e9d8bf center/cover no-repeat;border-top:0}.mobile-app .room-scene:after,.mobile-app .room-scene>[class^=scene-]{display:none}
 .mobile-app .room-scene.breakfast{background-image:url(assets/rooms/breakfast.webp)}.mobile-app .room-scene.nap{background-image:url(assets/rooms/nap.webp)}.mobile-app .room-scene.stars{height:auto;background-image:url(assets/rooms/stars.webp)}
 .mobile-app .room-scene .resident{left:var(--x);top:var(--y);right:auto;bottom:auto;width:var(--w,30%);height:auto;transform:translate(-50%,-90%)}.mobile-app .room-scene .resident img{width:100%;height:auto;aspect-ratio:150/110}.mobile-app .room-scene .resident span{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:2px}
-.breakfast .place-0{--x:25%;--y:61%}.breakfast .place-1{--x:58%;--y:53%}
+.breakfast .place-0{--x:25%;--y:61%}.breakfast .place-1{--x:58%;--y:57.5%}
 .nap .resident{--w:25%}.nap .place-0{--x:36%;--y:18.5%}.nap .place-1{--x:74%;--y:55%}.nap .place-2{--x:24%;--y:71%}.nap .place-3{--x:68%;--y:72%}
 .stars .resident{--w:21%}.stars .resident.missing img{filter:brightness(0) invert(1) opacity(.3)}.stars .place-0{--x:25.7%;--y:26%}.stars .place-1{--x:49.5%;--y:26%}.stars .place-2{--x:73.2%;--y:26%}.stars .place-3{--x:33.2%;--y:45.5%}.stars .place-4{--x:66.4%;--y:45.5%}.stars .place-5{--x:34.8%;--y:69%}.stars .place-6{--x:65%;--y:69%}
 /* Settings. */
