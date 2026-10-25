@@ -15,3 +15,61 @@
 .mobile-nav button{min-width:0}
 .mobile-nav button span{font-size:22px}
 .mobile-nav button[hidden],.meta-tabs button[hidden]{display:none}
+
+/* ---------- Placements (monetization.js), on the design.css tokens ---------- */
+/* An ad button wears a small "▶" and reads as a bonus, never as the main action of the screen. */
+.mobile-app .ad-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.mobile-app .secondary.ad-btn{border:0;background:var(--lilac-soft);color:var(--lilac-ink);font-weight:800;box-shadow:inset 0 -2px 0 var(--lilac-line)}
+.mobile-app .double-collect{margin:-4px 0 var(--s4)}
+.mobile-app .x2-btn{margin-bottom:var(--s2)}
+#prepDialog .prep-ad{margin:var(--s3) 0 var(--s2)}
+.mobile-app .wallet-link{cursor:pointer}
+body:not(.ftue) .wallet-link:active{transform:translateY(1px)}
+.mobile-app .shop-link{display:block;margin:6px auto 0}
+
+/* Shop cards, the gift and the starter offer. */
+.mobile-app .shop-card{position:relative}
+.mobile-app .shop-card.owned{opacity:.7}
+.mobile-app .gift-card{background:var(--lilac-soft);border-color:var(--lilac-line)}
+.mobile-app .gift-card .primary{width:auto}
+.offer-badge{position:absolute;top:-8px;right:12px;background:var(--coral);color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;border:1.5px solid var(--ink);border-radius:var(--r-pill);padding:2px 8px}
+.mobile-app .offer-card{position:relative;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;background:var(--gold-soft);border:2px solid var(--ink);border-radius:var(--r-lg);box-shadow:var(--shadow-press);padding:14px;margin:6px 0 var(--s4);text-align:left}
+.mobile-app .offer-card .shop-icon{background:#fff;font-size:24px}
+.mobile-app .offer-card b{display:block;font-size:15px;font-weight:800}
+.mobile-app .offer-card small{display:block;font-size:12px;line-height:1.4;color:var(--ink-2);margin-top:2px}
+.mobile-app .offer-card .offer-timer{color:var(--gold-ink);font-weight:800}
+.mobile-app .offer-card .primary{min-height:40px;padding:8px 14px;font-size:14px;border-radius:var(--r-sm);box-shadow:0 2px 0 var(--ink);white-space:nowrap}
+.mobile-app .offer-card.compact{margin-top:var(--s2)}
+#starterBanner[hidden]{display:none}
+.mobile-app .stub-note{margin-top:var(--s3)}
+.offer-dialog .offer-card{margin-top:var(--s4)}
+.offer-dialog p{margin-bottom:0}
+
+/* Test ad and test purchase screens. */
+#stubAd{width:min(92vw,380px);text-align:center;background:var(--ink);color:#fff;border-color:var(--ink)}
+#stubAd::backdrop{background:rgba(48,43,53,.85)}
+#stubAd .eyebrow{color:var(--coral)}
+#stubAd h2{color:#fff;margin:var(--s3) 0 var(--s2)}
+#stubAd p{color:rgba(255,255,255,.7)}
+.stub-ad-art{height:150px;border-radius:var(--r-lg);margin-top:var(--s3);display:grid;place-items:center;background:repeating-linear-gradient(-45deg,#3d3644 0 14px,#463e4e 14px 28px)}
+.stub-ad-art span{font-size:40px;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.35)}
+#stubAd .progress-track{background:rgba(255,255,255,.12);margin:var(--s4) 0}
+#stubAd .progress-track>div{height:100%;background:var(--coral);transition:width 1s linear;width:0}
+#stubAd .primary{width:100%}
+#stubAd .text-btn{color:rgba(255,255,255,.7);margin-top:var(--s2)}
+#stubBuy{width:min(92vw,380px);margin:auto auto 12px;text-align:left}
+#stubBuy .stub-buy-head{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;margin-top:var(--s3)}
+#stubBuy .stub-buy-head b{display:block;font-size:16px}
+#stubBuy .stub-buy-head small{color:var(--ink-2);font-size:12px}
+#stubBuy .stub-buy-price{font-size:28px;font-weight:800;color:var(--ink);margin:var(--s4) 0 var(--s1)}
+#stubBuy .primary{width:100%;margin-top:var(--s2)}
+#stubBuy .text-btn{display:block;margin:var(--s2) auto 0}
+#energyDialog .secondary,#energyDialog .text-btn{display:block;width:100%;margin-top:var(--s2)}
+
+/* Revive offer: a countdown ring around the seconds left. */
+.revive-ring{--p:1;width:76px;height:76px;margin:var(--s3) auto var(--s4);border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--coral) calc(var(--p)*360deg),var(--surface-2) 0);transition:--p 1s linear}
+.revive-ring b{width:60px;height:60px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:26px;font-weight:800;color:var(--ink)}
+#overlay .ad-btn+.text-btn{display:block;margin:var(--s2) auto 0}
+.mobile-app .offer-card.compact small:not(.offer-timer){display:none}
+.mobile-app .offer-card.compact b{font-size:16px}
+.mobile-app .gift-card .ad-btn{width:auto;min-height:40px;padding:8px 14px}

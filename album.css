@@ -1,0 +1,60 @@
+/* Golden cats, album, Ранг приюта, Золотая гостиная (album.js). */
+#rankCard{margin:6px 0 14px;padding:12px 14px;border:2px solid #d6a93c;border-radius:18px;background:linear-gradient(135deg,#fff6dc,#fffdf5)}
+.rank-top{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-bottom:6px}
+.rank-top small{display:block;font-size:10px;letter-spacing:.08em;color:#9a7a3a}
+.rank-top b{font-size:16px;color:#302b35}
+.rank-stars{font-weight:800;font-size:13px;color:#b07d14;white-space:nowrap}
+.rank-track>div{background:linear-gradient(90deg,#f2b81f,#e9902b)}
+.rank-next,.rank-goal{margin:8px 2px 0;font-size:12px;color:#6d5f66}
+.rank-goal{color:#9a7a3a;font-weight:700}
+#rankCard .rank-claim{width:100%;margin:10px 0 0;display:flex;flex-direction:column;align-items:center;gap:2px}
+#rankCard .rank-claim small{font-size:11px;font-weight:600;opacity:.9}
+.rank-help{margin-top:6px;font-size:11.5px;color:#6d5f66}
+.rank-help summary{cursor:pointer;font-weight:700}
+.rank-help p{margin:4px 0 0;line-height:1.4}
+
+#albumCard{margin:4px 0 16px}
+.album-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 6px}
+.album-head h3{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8c7e82}
+.album-head small{font-size:11.5px;color:#6d5f66}
+.charm-pill{padding:4px 9px;border-radius:999px;background:#fff1c2;border:1.5px solid #d6a93c;font-size:11.5px;font-weight:800;color:#8a5d0b;white-space:nowrap}
+.album-note{margin:0 2px 8px;font-size:12px;line-height:1.4;color:#6d5f66}
+.album-luck{margin:0 2px 10px}
+.album-luck small{display:block;font-size:11px;color:#8b818c;margin-bottom:4px}
+.album-luck .progress-track>div{background:linear-gradient(90deg,#f2b81f,#e9902b)}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.album-tile{display:flex;flex-direction:column;align-items:center;gap:1px;margin:0;padding:6px 4px 7px;border:2px solid #e5ddcf;border-radius:14px;background:#fffaf0;color:#302b35;font-size:12px;min-width:0}
+.album-tile img{width:100%;max-width:84px;aspect-ratio:150/110}
+.album-tile b{font-size:12px}
+.album-tile small{font-size:10px;color:#8b818c;white-space:nowrap}
+.album-tile.golden{border-color:#e0a920;background:radial-gradient(circle at 50% 35%,#fff3c4,#fffaf0 70%);box-shadow:0 0 0 2px #fff3c4 inset}
+.album-tile.golden small{color:#a8730c;font-weight:800}
+.album-tile.missing img{filter:brightness(0);opacity:.18}
+
+.gallery-room .gallery-scene{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px;border-radius:18px;background:linear-gradient(180deg,#5a3d2b,#3c2a20);min-height:120px}
+.gallery-scene img{width:100%;aspect-ratio:150/110;filter:drop-shadow(0 0 6px #ffcf3a)}
+.gallery-scene i{aspect-ratio:150/110;border:1.5px dashed #a8835e;border-radius:10px;opacity:.6}
+.gallery-room.locked .gallery-scene{filter:grayscale(.7) brightness(.8)}
+.resident.golden img{filter:drop-shadow(0 0 5px #ffcf3a)}
+
+.gold-receipt{display:grid;gap:6px;margin:0 0 10px}
+.gold-receipt>div{display:grid;grid-template-columns:60px 1fr;align-items:center;gap:8px;padding:6px 10px;border:2px solid #e0a920;border-radius:14px;background:#fff6d6;text-align:left}
+.gold-receipt img{width:60px;filter:drop-shadow(0 0 6px #ffcf3a)}
+.gold-receipt p{margin:0}
+.gold-receipt b{display:block;font-size:13px}
+.gold-receipt small{font-size:11.5px;color:#6d5f66}
+.gold-lost{margin:-4px 0 8px;font-weight:700;color:#a8730c}
+.gold-cargo{color:#a8730c}
+.prep-charm{font-weight:700;color:#a8730c}
+
+.roster-card.undiscovered{cursor:pointer}
+.howto ol{margin:8px 0;padding-left:20px;text-align:left;font-size:13px;line-height:1.45;color:#4b3f46}
+.howto-room{font-size:12px;color:#6d5f66;text-align:left}
+.howto-shadow{filter:brightness(0);opacity:.25}
+.howto-gold{display:grid;grid-template-columns:56px 1fr;gap:8px;align-items:center;margin-top:10px;padding:8px 10px;border:1.5px dashed #d6a93c;border-radius:14px;background:#fffaf0;text-align:left}
+.howto-gold.found{border-style:solid;background:#fff6d6}
+.howto-gold.found img{filter:drop-shadow(0 0 5px #ffcf3a)}
+.howto-gold img{width:56px}
+.howto-gold p{margin:0}
+.howto-gold b{display:block;font-size:13px}
+.howto-gold small{font-size:11.5px;line-height:1.4;color:#6d5f66}

@@ -17,3 +17,20 @@ html{background:#f7f3e9}body.mobile-app{--phone-h:100dvh;width:100%;max-width:no
 #pane-settings h3{font-size:13px;margin:0 0 12px}.settings-group{background:#fffdf5;border:1px solid #e5ddcf;border-radius:18px;padding:16px 14px;margin-bottom:14px}.settings-row{display:flex;align-items:center;justify-content:space-between;font-size:14px}.cheat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cheat-grid .secondary{margin:0;padding:12px 8px}#pane-settings .danger{color:#c4442b;border-color:#c4442b;margin-top:16px}html.debug-build .mobile-app #pane-settings .balance{display:block!important}#appVersion{text-align:center}
 /* Test tools stay in debug builds only. */
 html:not(.debug-build) #debugPanel,html:not(.debug-build) details.balance,html:not(.debug-build) .dev-only{display:none}
+
+/* Skills tab: groups by role, locked cards. In-run slow-motion button. */
+.skill-group{margin:18px 2px 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8c7e82}
+.skill-group:first-child{margin-top:4px}
+.skill-group::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--role)}
+.skill-group.role-rescue,.gear-card.role-rescue{--role:#e0735a}
+.skill-group.role-control,.gear-card.role-control{--role:#8f7bc4}
+.skill-group.role-income,.gear-card.role-income{--role:#d6a93c}
+.gear-card{border-left:4px solid var(--role,#e5ddcf)}
+.gear-card>span{color:var(--role)}
+.gear-card.locked{opacity:.55}
+.gear-card .gear-stat{color:#5b4a52}
+.slowmo-button{position:absolute;right:14px;bottom:150px;z-index:3;width:58px;height:58px;border-radius:50%;border:2px solid #fff;background:linear-gradient(145deg,#cfe6ff,#8fb8e8);color:#284766;font-size:24px;font-weight:900;box-shadow:0 6px 14px #3d5c8a44;display:flex;align-items:center;justify-content:center;gap:2px}
+.slowmo-button b{font-size:14px}
+.slowmo-button:disabled{opacity:.6}
+.game-shell.slowmo canvas{filter:saturate(.75) hue-rotate(-12deg) brightness(1.04)}
+.game-shell.slowmo::after{content:'';position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 60px #8fb8e8aa;z-index:2}

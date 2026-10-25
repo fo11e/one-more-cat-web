@@ -1,0 +1,63 @@
+/* First session (tutorial.js). Built from the design.css tokens: lilac coach card, coral = the one thing to tap. */
+
+/* Tutorial colour: deep plum, used only for hints, so they never look like a game card or a button. */
+:root{--tip:#4a3470;--tip-2:#5d4488;--tip-text:#ece4f8;--tip-tag:#c9b5ee}
+
+/* While the tutorial runs, the lobby shows only what the first session needs. */
+body.ftue #rankCard,body.ftue .cozy,body.ftue #collectDouble,body.ftue #riskHook,
+body.ftue [data-mobile-pane="gear"],body.ftue [data-mobile-pane="quests"],body.ftue [data-mobile-pane="skins"],body.ftue #mobileShop{display:none!important}
+body:not(.ftue) .ftue-settings{display:none}
+body.ftue .task-receipt{display:none}
+
+/* Coach card: the mascot plus one or two short lines. */
+.ftue-coach{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(160px + env(safe-area-inset-bottom));z-index:40;
+ width:min(360px,calc(100% - 32px));display:flex;gap:10px;align-items:flex-start;padding:12px 14px;
+ background:linear-gradient(160deg,var(--tip-2),var(--tip));border:2px solid var(--ink);border-radius:var(--r-lg);box-shadow:var(--shadow-sticker);
+ font-family:var(--font);color:#fff;animation:ftue-pop .28s cubic-bezier(.2,1.4,.4,1) both}
+.ftue-coach[hidden]{display:none}
+.ftue-coach.in-game{top:calc(env(safe-area-inset-top) + 64px);bottom:auto}
+.ftue-face{width:44px;height:44px;padding:3px;border-radius:50%;background:var(--surface);object-fit:contain;flex-shrink:0;animation:ftue-bob 1.6s ease-in-out infinite}
+.ftue-text{font-size:14px;line-height:1.4;color:var(--tip-text)}
+.ftue-text::before{content:"ПОДСКАЗКА";display:block;margin-bottom:2px;font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--tip-tag)}
+.ftue-text b{color:#fff;font-weight:800}
+.ftue-text .primary{display:block;margin:10px 0 0;width:100%;padding:11px;font-size:14px}
+
+/* Spotlight: everything around the target goes dim; a coral ring breathes around it. */
+.ftue-spot{position:fixed;z-index:39;pointer-events:none;border-radius:var(--r-lg);
+ box-shadow:0 0 0 200vmax rgb(48 43 53 / .55);transition:left .2s,top .2s,width .2s,height .2s,opacity .2s}
+.ftue-spot[hidden]{display:none}
+.ftue-spot::after{content:"";position:absolute;inset:-4px;border:3px solid var(--coral);border-radius:inherit;animation:ftue-ring 1.3s ease-out infinite}
+
+/* Drag hint under the tray: a finger swinging left and right. */
+.ftue-drag{position:absolute;z-index:5;pointer-events:none;transform:translateX(-50%);width:150px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.ftue-drag[hidden]{display:none}
+.ftue-drag i{font-style:normal;font-size:30px;font-weight:800;color:var(--lilac);opacity:.7}
+.ftue-finger{position:absolute;left:50%;top:4px;font-size:38px;filter:drop-shadow(0 3px 0 rgb(48 43 53 / .25));animation:ftue-swipe 1.8s ease-in-out infinite}
+
+/* Note inside the result card. */
+.ftue-callout{display:flex;gap:10px;align-items:center;margin:12px 0;padding:10px 12px;text-align:left;
+ background:linear-gradient(160deg,var(--tip-2),var(--tip));border:2px solid var(--ink);border-radius:var(--r-md)}
+.mobile-app .overlay-card .ftue-callout p{margin:0;font-size:13px;line-height:1.4;color:var(--tip-text)}
+.ftue-callout b{color:#fff}
+.ftue-callout .ftue-face{width:38px;height:38px}
+
+/* Welcome sheet on a fresh install. */
+.mobile-app dialog.ftue-welcome{width:min(360px,calc(100vw - 32px));text-align:center;padding:22px 20px 16px}
+.ftue-welcome::backdrop{background:rgb(48 43 53 / .45)}
+.ftue-trio{display:flex;justify-content:center;align-items:flex-end;gap:2px;height:92px;margin:0 0 10px}
+.ftue-trio img{width:88px;height:80px;object-fit:contain;animation:ftue-bob 1.8s ease-in-out infinite}
+.ftue-trio img:nth-child(2){width:104px;height:92px;animation-delay:.3s}
+.ftue-trio img:nth-child(3){animation-delay:.6s}
+.ftue-welcome .eyebrow{display:block;color:var(--coral-ink);font-size:12px;font-weight:800;letter-spacing:.08em}
+.ftue-welcome h2{margin:6px 0 8px}
+.ftue-welcome .primary{width:100%;margin:14px 0 4px}
+.ftue-welcome .text-btn{color:var(--muted);font-size:13px}
+
+/* A tab that just opened: a coral dot until it is visited. */
+.mobile-nav button.ftue-new::after{content:"";position:absolute;top:4px;right:calc(50% - 18px);width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 2px var(--surface)}
+
+@keyframes ftue-pop{from{opacity:0;transform:translateX(-50%) scale(.92)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes ftue-bob{50%{transform:translateY(-4px) rotate(-3deg)}}
+@keyframes ftue-ring{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.08)}}
+@keyframes ftue-swipe{0%,100%{transform:translateX(-95%) rotate(-8deg)}50%{transform:translateX(-5%) rotate(8deg)}}
+@media (prefers-reduced-motion:reduce){.ftue-coach,.ftue-face,.ftue-trio img,.ftue-spot::after,.ftue-finger{animation:none}}

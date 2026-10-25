@@ -1,0 +1,190 @@
+/* One More Cat — unified UI layer. Loaded last; every colour, radius and size below comes from the tokens here.
+   Look: cream paper, soft clay cards, one coral "sticker" button per screen, lilac for everyday actions, gold only for golden cats and rank. */
+:root{
+ --bg:#f7f3e9;--surface:#fffdf6;--surface-2:#f3ecdf;--line:#e6dccb;--line-strong:#d8ccb7;
+ --ink:#302b35;--ink-2:#5b4d55;--muted:#7d7078;
+ --coral:#f26b50;--coral-soft:#fde5dc;--coral-ink:#b8432b;
+ --lilac:#8f6fb8;--lilac-soft:#efe6f6;--lilac-line:#dccbec;--lilac-ink:#5f4384;
+ --gold:#e0a920;--gold-soft:#fff3cf;--gold-ink:#8a5d0b;
+ --success:#3f8a4a;--success-soft:#e8f4e4;
+ --energy:#5e7a2c;--energy-soft:#eef1dc;
+ --r-xs:8px;--r-sm:12px;--r-md:16px;--r-lg:20px;--r-xl:28px;--r-pill:999px;
+ --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;
+ --shadow-card:0 2px 0 var(--line);--shadow-press:0 3px 0 var(--ink);--shadow-sticker:4px 5px 0 var(--ink);
+ --font:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Golos Text",Arial,sans-serif;
+}
+body.mobile-app,.mobile-app button,.mobile-app dialog{font-family:var(--font)}
+body.mobile-app{color:var(--ink);background:var(--bg)}
+.mobile-app *{font-variant-numeric:tabular-nums}
+
+/* ---------- Screen header: title left, currencies right, then one status strip ---------- */
+.mobile-app .meta{padding:14px 16px calc(210px + env(safe-area-inset-bottom))}
+.mobile-app .shelter-head{align-items:center;margin:0 0 var(--s3)}
+.mobile-app .shelter-head .eyebrow{display:none}
+.mobile-app .shelter-head h2{font-size:28px;font-weight:800;letter-spacing:-.5px;margin:0}
+.mobile-app .wallets{display:flex;gap:6px;text-align:left}
+.mobile-app .wallet,.mobile-app .vitamin-wallet{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 11px;border-radius:var(--r-pill);border:0;font-size:14px;font-weight:800}
+.mobile-app .wallet{background:var(--gold-soft);color:var(--gold-ink)}
+.mobile-app .wallet b{color:var(--ink)}
+.mobile-app .vitamin-wallet{background:var(--lilac-soft);color:var(--lilac-ink)}
+.mobile-app .vitamin-wallet b{color:var(--ink)}
+.status-strip{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--s2);margin:0 0 var(--s4)}
+.mobile-app .player-profile,.mobile-app .energy-bar{margin:0;padding:10px 12px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-card)}
+.mobile-app .player-profile>div:first-child{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.mobile-app .player-profile b{font-size:14px;font-weight:800;color:var(--ink)}
+.mobile-app .player-profile small{font-size:11px;font-weight:700;color:var(--muted)}
+.mobile-app .player-profile .progress-track>div{background:var(--lilac)}
+.mobile-app .energy-bar{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px}
+.mobile-app .energy-bar>span{font-size:15px;font-weight:800;color:var(--energy)}
+.mobile-app .energy-bar>span b{color:var(--ink)}
+.mobile-app .energy-bar small{font-size:11px;font-weight:700;color:var(--muted)}
+
+/* ---------- Type roles ---------- */
+.mobile-app .muted,.mobile-app .album-note,.mobile-app .rank-next,.mobile-app .room-caption{font-size:13px;line-height:1.45;color:var(--muted)}
+.mobile-app .save-note{font-size:11px;color:var(--muted);text-align:center}
+.mobile-app .skill-group,.mobile-app .task-head h3,.mobile-app .task-title,.mobile-app .album-head h3,.mobile-app .cozy-head b,.mobile-app .prep-title,
+.mobile-app .rank-top small,.mobile-app .income-summary small,.mobile-app .task-receipt>b,#pane-settings h3,#pane-shop>h3{
+ font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mobile-app .skill-group{margin:var(--s5) 2px var(--s2)}
+.mobile-app .skill-group:first-child{margin-top:var(--s1)}
+.mobile-app .task-head small,.mobile-app .album-head small,.mobile-app .cozy-head small{font-size:12px;color:var(--muted)}
+
+/* ---------- Progress bars: one height, one track ---------- */
+.mobile-app .progress-track{height:8px;border-radius:var(--r-pill);background:var(--surface-2);overflow:hidden}
+.mobile-app .progress-track>div,.mobile-app .progress-track>i{border-radius:var(--r-pill);background:var(--coral)}
+.mobile-app .rank-track>div,.mobile-app .album-luck .progress-track>div{background:var(--gold)}
+
+/* ---------- Buttons ---------- */
+/* Primary: the coral sticker. One main action per card or screen. */
+.mobile-app .primary,.mobile-launch button{border:2px solid var(--ink);border-radius:var(--r-md);background:var(--coral);color:#fff;font-size:15px;font-weight:800;letter-spacing:.02em;padding:14px 18px;min-height:52px;box-shadow:var(--shadow-press);text-transform:none}
+.mobile-launch button{font-size:17px;min-height:58px;letter-spacing:.04em}
+.mobile-app .primary:active,.mobile-launch button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.mobile-app .primary small{color:#fff}
+/* Compact primary inside rows and summaries. */
+.mobile-app .income-summary .primary,.mobile-app .shop-card .primary,#prepDialog .prep-booster button,.mobile-app .reward-cat .primary{min-height:40px;padding:8px 14px;font-size:14px;border-radius:var(--r-sm);box-shadow:0 2px 0 var(--ink)}
+/* Secondary: everyday spend/upgrade actions. Lilac, no outline. */
+.mobile-app .quest-bottom button,.mobile-app .cat-upgrade button,.mobile-app .gear-card button,.mobile-app .upgrade button,
+.mobile-app .chest-card button,.mobile-app .skin-card-copy>span,#catDialog button:not(.close):not(.primary){
+ border:0;border-radius:var(--r-sm);background:var(--lilac-soft);color:var(--lilac-ink);font-size:13px;font-weight:800;padding:9px 12px;min-height:36px;box-shadow:inset 0 -2px 0 var(--lilac-line);white-space:nowrap;opacity:1}
+/* A reward that is ready to take turns coral. */
+.mobile-app .quest-bottom button[data-task]:not(:disabled),.mobile-app .chest-card button:not(:disabled){background:var(--coral);color:#fff;box-shadow:inset 0 -2px 0 var(--coral-ink)}
+.mobile-app .chosen .skin-card-copy>span{background:var(--lilac);color:#fff;box-shadow:none}
+/* Outline: settings, debug and "second choice" in dialogs. */
+.mobile-app .secondary{border:1.5px solid var(--line-strong);border-radius:var(--r-md);background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;padding:12px 14px;min-height:44px}
+.mobile-app .secondary.danger,#pane-settings .danger{border-color:var(--coral-ink);color:var(--coral-ink)}
+/* Text button. */
+.mobile-app .text-btn{font-size:13px;font-weight:700;color:var(--lilac-ink);padding:8px}
+.mobile-app .task-card .task-reroll{background:none;box-shadow:none;color:var(--lilac-ink);min-height:0;padding:6px 4px;font-size:13px}
+.mobile-app .icon-btn{border:1.5px solid var(--line-strong);border-radius:var(--r-pill);background:var(--surface);font-size:14px;font-weight:700;padding:7px 12px}
+/* Disabled and locked look the same everywhere: flat, readable, no colour. */
+.mobile-app button:disabled,.mobile-app .primary:disabled,.mobile-app .quest-bottom button:disabled,.mobile-app .gear-card button:disabled,.mobile-launch button:disabled{
+ background:var(--surface-2);color:var(--muted);border-color:var(--line);box-shadow:none;opacity:1;filter:none}
+.mobile-app .primary:disabled{border:2px solid var(--line)}
+
+/* ---------- Cards: one card, one tile ---------- */
+.mobile-app .puzzle-room,.mobile-app .roster-card,.mobile-app .gear-card,.mobile-app .quest-card,.mobile-app .shop-card,
+.mobile-app .settings-group,.mobile-app .reward-cat,.mobile-app .skin-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card)}
+.mobile-app .roster-card,.mobile-app .gear-card,.mobile-app .quest-card,.mobile-app .shop-card{padding:14px;margin:0 0 var(--s3)}
+.mobile-app .puzzle-room{margin:0 0 var(--s4)}
+.mobile-app .cozy-item,.mobile-app .album-tile,.mobile-app .prep-booster,.mobile-app .prep-task,.mobile-app .task-receipt,.mobile-app .prep-rules{
+ background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:none}
+.mobile-app .cozy{border-top:1px solid var(--line);margin:var(--s3) 13px 0;padding:var(--s3) 0 13px}
+.mobile-app .cozy-item{padding:10px;gap:0 8px}
+.mobile-app .cozy-item>b{color:var(--lilac)}
+.mobile-app .cozy-item span{font-size:13px}
+.mobile-app .cozy-item small{font-size:11px;color:var(--ink-2)}
+.mobile-app .cozy-item em{color:var(--gold-ink)}
+.mobile-app .cozy-item.owned,.mobile-app .album-tile.golden{border-color:var(--gold)}
+.mobile-app .cozy-item:disabled{background:var(--surface-2)}
+.mobile-app .room-title h3{font-size:16px;font-weight:800}
+.mobile-app .room-status{font-size:12px;font-weight:700;color:var(--muted)}
+.mobile-app .room-status.earning{color:var(--success)}
+.mobile-app .room-info{font-size:13px}
+.mobile-app .puzzle-room .progress-track{margin:8px 13px 0}
+
+/* Rank and piggy bank: the two summary panels on the shelter screen. */
+.mobile-app #rankCard{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:var(--r-lg);padding:14px;margin:0 0 var(--s3);box-shadow:none}
+.mobile-app .rank-top b{font-size:17px;font-weight:800}
+.mobile-app .rank-stars{color:var(--gold-ink);font-size:14px}
+.mobile-app .rank-goal{color:var(--gold-ink);font-size:13px}
+.mobile-app .rank-help{color:var(--ink-2);font-size:12px}
+.mobile-app .income-summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;margin:0 0 var(--s3);box-shadow:var(--shadow-card)}
+.mobile-app .income-summary strong{font-size:26px;font-weight:800}
+.mobile-app .income-summary span{font-size:12px;color:var(--muted)}
+
+/* Cats tab. */
+.mobile-app .album-tile{padding:8px 4px}
+.mobile-app .album-tile b{font-size:13px}
+.mobile-app .album-tile small{font-size:11px;color:var(--muted)}
+.mobile-app .album-tile.golden{background:var(--gold-soft)}
+.mobile-app .album-tile.golden small{color:var(--gold-ink)}
+.mobile-app .charm-pill{background:var(--gold-soft);border:1px solid var(--gold);color:var(--gold-ink);font-size:12px}
+.mobile-app .roster-card small{font-size:11px;color:var(--muted)}
+.mobile-app .roster-card h3{font-size:17px;font-weight:800}
+.mobile-app .roster-card h3 span{font-size:12px;color:var(--lilac-ink);background:var(--lilac-soft);border-radius:var(--r-pill);padding:2px 8px;margin-left:4px}
+.mobile-app .roster-card p{font-size:13px;line-height:1.45;color:var(--ink-2)}
+.mobile-app .cat-upgrade{font-size:12px;color:var(--ink-2)}
+
+/* Skills tab: role shown by the icon disc, not a side stripe. */
+.mobile-app .gear-card{border-left:1px solid var(--line);align-items:flex-start}
+.mobile-app .gear-card>span{flex:0 0 40px;width:40px;height:40px;border-radius:var(--r-sm);display:grid;place-items:center;font-size:20px;color:var(--role,var(--lilac));background:var(--surface-2)}
+.mobile-app .gear-card b{font-size:15px;font-weight:800}
+.mobile-app .gear-card small{font-size:12px;line-height:1.45;color:var(--ink-2)}
+.mobile-app .gear-card .gear-stat{color:var(--ink)}
+.mobile-app .gear-card.locked{opacity:1;background:var(--surface-2);box-shadow:none}
+.mobile-app .gear-card.locked>span{filter:grayscale(1);opacity:.6}
+.mobile-app .gear-card.locked b{color:var(--ink-2)}
+.mobile-app .gear-card.mastery{background:var(--gold-soft);border-color:var(--gold)}
+
+/* Quests tab. */
+.mobile-app .quest-card h3{font-size:15px;font-weight:800}
+.mobile-app .quest-card h3 span{font-size:13px;color:var(--lilac-ink)}
+.mobile-app .quest-card p{font-size:13px;color:var(--ink-2);margin:6px 0 10px}
+.mobile-app .quest-bottom small{font-size:13px;font-weight:700;color:var(--ink-2)}
+.mobile-app .chest-card{background:var(--gold-soft);border-color:var(--gold)}
+
+/* Shop. */
+.mobile-app .shop-icon{border-radius:var(--r-sm);background:var(--lilac-soft);color:var(--lilac-ink)}
+.mobile-app .shop-card b{font-size:15px}
+.mobile-app .shop-card small{font-size:12px;color:var(--ink-2)}
+
+/* Settings. */
+.mobile-app .settings-group{padding:var(--s4)}
+.mobile-app .cheat-grid .secondary{font-size:13px;min-height:40px}
+
+/* ---------- Badges and tags ---------- */
+.mobile-nav i:not(:empty),#questBadge:not(:empty){min-width:18px;height:18px;padding:0 5px;border-radius:var(--r-pill);background:var(--coral);color:#fff;font-size:11px;font-weight:800;line-height:18px;width:auto}
+
+/* ---------- Bottom bar and launch button ---------- */
+.mobile-nav{background:var(--surface);border-top:1px solid var(--line)}
+.mobile-nav button{font-size:11px;font-weight:700;color:var(--muted);border-radius:var(--r-sm)}
+.mobile-nav button span{font-size:22px;line-height:26px}
+.mobile-nav button.selected{background:var(--lilac-soft);color:var(--lilac-ink)}
+.mobile-launch{background:linear-gradient(#f7f3e900,var(--bg) 26%)}
+.mobile-launch small{font-size:12px;color:var(--muted)}
+
+/* ---------- Dialogs, game overlays, toast ---------- */
+.mobile-app dialog{border:2px solid var(--ink);border-radius:var(--r-xl);background:var(--bg);box-shadow:var(--shadow-sticker);padding:24px 18px 18px}
+.mobile-app dialog h2,.mobile-app .overlay-card h2{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.05}
+.mobile-app dialog p,.mobile-app .overlay-card p{font-size:14px;line-height:1.45;color:var(--ink-2)}
+.mobile-app .eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--coral-ink)}
+.mobile-app .overlay-card{background:var(--bg);border:2px solid var(--ink);border-radius:var(--r-xl);box-shadow:var(--shadow-sticker)}
+.mobile-app .overlay-card .primary,.mobile-app .overlay-card .secondary{font-size:15px;padding:13px}
+.mobile-app .overlay-card small{font-size:12px;color:var(--muted)}
+.mobile-app .close{width:36px;height:36px;border-radius:50%;background:var(--surface-2);font-size:22px;line-height:1;right:12px;top:12px;color:var(--ink-2)}
+#prepDialog .prep-booster{padding:10px 12px}
+#prepDialog .prep-booster .prep-icon{border-radius:var(--r-sm);background:var(--coral-soft);color:var(--coral-ink)}
+#prepDialog .prep-booster b{font-size:15px}
+#prepDialog .prep-booster small{font-size:12px;color:var(--ink-2)}
+#prepDialog .prep-booster.armed{border-color:var(--success);background:var(--success-soft)}
+#prepDialog .prep-booster.locked{opacity:1;background:var(--surface-2)}
+#prepDialog .prep-booster.locked .prep-icon{filter:grayscale(1);opacity:.6}
+.mobile-app .prep-task span{color:var(--lilac-ink);font-size:11px}
+.mobile-app .prep-task b{font-size:14px}
+.mobile-app .prep-task small{font-size:12px;color:var(--muted)}
+.mobile-app .prep-rules summary{font-size:14px}
+.mobile-app .prep-rules ul{font-size:13px;color:var(--ink-2)}
+.mobile-app #toast{background:var(--ink);color:#fff;border-radius:var(--r-md);font-size:14px;font-weight:700;padding:12px 18px}
+
+/* In-run HUD keeps its own playful styling; only the deliver bar joins the system. */
+.mobile-app .cashout-button{border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-press);font-weight:800}
