@@ -6,7 +6,7 @@ const MAX_FALL=12;
 // Tray tilt: angle per unit of load moment (mass × px from the tray centre), limit and easing per physics step.
 const TILT={k:2.3e-4,max:8*Math.PI/180,ease:.08};
 const TRAY_SPRITE=new Image();TRAY_SPRITE.src='assets/tray.webp';
-const TYPES=[{name:'Персик',color:'#f3a354',w:76,h:50,m:1},{name:'Батон',color:'#f4e5bf',w:100,h:37,m:1.1},{name:'Тучка',color:'#a99bc9',w:72,h:48,m:1.15},{name:'Уголёк',color:'#4a414e',w:69,h:42,m:.9},{name:'Пломбир',color:'#fff9eb',w:85,h:33,m:1},{name:'Космокот',color:'#a9d1bd',w:82,h:51,m:1.25}];
+const TYPES=[{name:'Персик',color:'#f3a354',w:76,h:50,m:1},{name:'Батон',color:'#f4e5bf',w:108,h:34,m:1.1},{name:'Тучка',color:'#a99bc9',w:72,h:48,m:1.15},{name:'Уголёк',color:'#4a414e',w:69,h:42,m:.9},{name:'Пломбир',color:'#fff9eb',w:85,h:33,m:1},{name:'Космокот',color:'#a9d1bd',w:82,h:51,m:1.25}];
 TYPES.push(...[
 {name:'Мята',color:'#a4c7a3',w:80,h:47,m:1},
 {name:'Пончик',color:'#e5a5b4',w:85,h:47,m:1.1},

@@ -2,9 +2,9 @@
 // Base cat art from the sprite sheet. Each body box (x,y,w,h in sprite pixels) is what the collider covers;
 // ears, tails, the helmet and the crown hang outside it. TYPES sizes in app.js come from these boxes.
 const CatSprites=(()=>{
- const bodies=[[3.6,14.8,106.3,70.6],[3.6,12.7,140.3,52.1],[4.1,16.2,101.3,67.2],[3.6,14.3,96.4,59.1],[4.1,10.7,120.2,46.1],[4.5,23.3,116.0,72.1],[3.6,10.4,113.3,66.0],[3.1,10.9,119.3,66.5],[3.6,14.9,106.7,67.5],[4.5,12.2,152.5,59.2],[3.6,11.3,101.0,85.1],[6.8,11.2,151.4,57.7],[3.6,22.0,126.0,71.4]];
+ const bodies=[[3.6,14.8,106.3,70.6],[13.1,18.4,165.8,52.0],[4.1,16.2,101.3,67.2],[3.6,14.3,96.4,59.1],[4.1,10.7,120.2,46.1],[4.5,23.3,116.0,72.1],[3.6,10.4,113.3,66.0],[3.1,10.9,119.3,66.5],[3.6,14.9,106.7,67.5],[4.5,12.2,152.5,59.2],[3.6,11.3,101.0,85.1],[6.8,11.2,151.4,57.7],[3.6,22.0,126.0,71.4]];
  const images=[];let ready=false;
- const load=Promise.all(bodies.map((_,i)=>new Promise(resolve=>{const img=new Image();img.onload=()=>{images[i]=img;(img.decode?img.decode():Promise.resolve()).catch(()=>{}).then(()=>resolve(true))};img.onerror=()=>resolve(false);img.src=`assets/cats/${String(i).padStart(2,'0')}.webp`}))).then(r=>ready=r.every(Boolean));
+ const load=Promise.all(bodies.map((_,i)=>new Promise(resolve=>{const img=new Image();img.onload=()=>{images[i]=img;(img.decode?img.decode():Promise.resolve()).catch(()=>{}).then(()=>resolve(true))};img.onerror=()=>resolve(false);img.src=`assets/cats/${String(i).padStart(2,'0')}.webp?v=5`}))).then(r=>ready=r.every(Boolean));
  function draw(c,x,y,w,h,type,angle=0,squash=0){
   const img=images[type],b=bodies[type];if(!ready||!img)return false;
   const sx=w/b[2],sy=h/b[3];
