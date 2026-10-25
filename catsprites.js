@@ -5,7 +5,7 @@ const CatSprites=(()=>{
  const bodies=[[3.6,14.8,106.3,70.6],[13.1,18.4,165.8,52.0],[4.1,16.2,101.3,67.2],[3.6,14.3,96.4,59.1],[4.1,10.7,120.2,46.1],[4.5,23.3,116.0,72.1],[3.6,10.4,113.3,66.0],[3.1,10.9,119.3,66.5],[3.6,14.9,106.7,67.5],[4.5,12.2,152.5,59.2],[3.6,11.3,101.0,85.1],[6.8,11.2,151.4,57.7],[3.6,22.0,126.0,71.4]];
  const images=[];let ready=false;
  const gold=[];
- const load=Promise.all(bodies.map((_,i)=>new Promise(resolve=>{const img=new Image();img.onload=()=>{images[i]=img;gold[i]=golden(img);Promise.race([img.decode?img.decode():Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).catch(()=>{}).then(()=>resolve(true))};img.onerror=()=>resolve(false);img.src=`assets/cats/${String(i).padStart(2,'0')}.webp?v=7`}))).then(r=>ready=r.every(Boolean));
+ const load=Promise.all(bodies.map((_,i)=>new Promise(resolve=>{const img=new Image();img.onload=()=>{images[i]=img;gold[i]=golden(img);Promise.race([img.decode?img.decode():Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).catch(()=>{}).then(()=>resolve(true))};img.onerror=()=>resolve(false);img.src=`assets/cats/${String(i).padStart(2,'0')}.webp?v=8`}))).then(r=>ready=r.every(Boolean));
  // Golden cat: the sprite recoloured gold (luminance kept), clipped to its own outline, with a light sheen.
  function golden(img){
   const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const g=c.getContext('2d');

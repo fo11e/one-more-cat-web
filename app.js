@@ -132,10 +132,30 @@ function setCompression(cat,next,keepBottom=false){
 // Squashing under a cat that is still landing grabs it: sliding cats stuck to the stack.
 // So the stack only squashes once the newest cat has rested for a moment.
 const SQUASH_SETTLE_MS=600;
+// Squash follows the real load: each landed cat carries the mass resting on it through contacts
+// (cats touching it from above, and recursively what lies on them, split between their supports).
+// No load, no squash; the skill level caps it. Loads are refreshed every few steps; a load rises at once
+// and fades out over a few updates, so a contact that flickers while the cat below squashes doesn't make it pump.
+const SQUASH_LOAD_EVERY=3;
+let squashTick=0;
+function updateLoads(stack){
+ const unit=TYPES[0].w*TYPES[0].h*.001*TYPES[0].m,below=new Map(stack.map(c=>[c,[]])),raw=new Map(stack.map(c=>[c,0]));
+ for(const pair of engine.pairs.list){
+  if(!pair.isActive)continue;const a=pair.bodyA.cat,b=pair.bodyB.cat;
+  if(!a?.landed||!b?.landed||Math.abs(pair.collision.normal.y)<.5)continue;
+  const [top,bottom]=a.body.position.y<b.body.position.y?[a,b]:[b,a];
+  below.get(top)?.push(bottom);
+ }
+ // Top to bottom: a cat passes its own weight plus its load down to the cats it rests on.
+ for(const c of stack){const under=below.get(c);if(!under.length)continue;const share=(c.body.mass/unit+raw.get(c))/under.length;for(const u of under)raw.set(u,raw.get(u)+share)}
+ for(const c of stack){const r=raw.get(c),l=c.load||0;c.load=r>=l?r:l+(r-l)*.2}
+}
 function compressCats(dt){
  const stack=cats.filter(c=>c.landed).sort((a,b)=>a.body.position.y-b.body.position.y);
  if(Date.now()-Math.max(0,...stack.map(c=>c.landedAt||0))<SQUASH_SETTLE_MS)return;
- stack.forEach((cat,above)=>{const desired=Math.max(1-Economy.compressionCap(runGear.accordion),1/(1+above*.38));const next=cat.compression+(desired-cat.compression)*Math.min(1,dt*1.8);if(Math.abs(next-cat.compression)>.0001)setCompression(cat,next,true);});
+ if(squashTick++%SQUASH_LOAD_EVERY===0)updateLoads(stack);
+ const floor=1-Economy.compressionCap(runGear.accordion);
+ for(const cat of stack){const desired=Math.max(floor,1/(1+(cat.load||0)*.38));const next=cat.compression+(desired-cat.compression)*Math.min(1,dt*1.8);if(Math.abs(next-cat.compression)>.0001)setCompression(cat,next,true)}
 }
 function resetWorld(width=Economy.gearStats(save.gear).width){cashoutLocked=false;rescueOffer=null;Composite.clear(engine.world,false);Engine.clear(engine);cats=[];particles=[];board=Bodies.rectangle(220,525,width,15,{isStatic:true,friction:Economy.gearStats(runGear).trayFriction,frictionStatic:Economy.gearStats(runGear).trayStatic,restitution:.02,chamfer:{radius:5},label:'tray'});board.trayWidth=width;board.friction=Economy.gearStats(runGear).trayFriction;board.frictionStatic=Economy.gearStats(runGear).trayStatic;Composite.add(engine.world,board);targetX=220;score=0;pending=null;checkpointWait=0;viewScale=1;cameraY=0;accumulator=0}
 function spawnRange(){return Math.min(350,120+score*11+Math.min(60,save.total*.3))}
